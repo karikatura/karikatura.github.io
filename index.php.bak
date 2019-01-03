@@ -1,0 +1,26 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+header('Content-Type: text/html; charset=utf-8');
+
+$page = basename($_SERVER['REQUEST_URI']) ?: 'index.html';
+
+if(file_exists('pages/' . str_replace(array('..', '/'), array('', ''), $page)))
+{
+    print file_get_contents('pages/' . $page);
+}
+else
+{
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: /"); 
+    exit;
+    /*
+    header("HTTP/1.0 404 Not Found");
+    print '<h1>' . htmlspecialchars($_SERVER['REQUEST_URI']) . '</h1>' . "<h1>HTTP/1.0 404 Not Found</h1>";
+     */
+}
